@@ -31,7 +31,7 @@ export default function RootLayout({
                 <Link href="/create" className="text-gray-600 hover:text-gray-900">
                   Create Poll
                 </Link>
-                <Link href="/auth" className="text-gray-600 hover:text-gray-900">
+                <Link href="/auth/login" className="text-gray-600 hover:text-gray-900">
                   Sign In
                 </Link>
               </div>
