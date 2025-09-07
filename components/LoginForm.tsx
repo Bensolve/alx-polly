@@ -3,6 +3,12 @@
 import { useState } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Label } from '@/components/ui/label'
 
 export default function LoginForm() {
   const [email, setEmail] = useState('')
@@ -29,42 +35,56 @@ export default function LoginForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      {error && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-          {error}
-        </div>
-      )}
-      <div>
-        <label className="block text-sm font-medium">Email</label>
-        <input 
-          type="email" 
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full px-3 py-2 border rounded-md"
-          placeholder="Enter your email"
-          required
-        />
-      </div>
-      <div>
-        <label className="block text-sm font-medium">Password</label>
-        <input 
-          type="password" 
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full px-3 py-2 border rounded-md"
-          placeholder="Enter your password"
-          required
-        />
-      </div>
-      <button 
-        type="submit"
-        disabled={loading}
-        className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:opacity-50"
-      >
-        {loading ? 'Signing In...' : 'Sign In'}
-      </button>
-    </form>
+    <Card className="w-full max-w-md">
+      <CardHeader className="space-y-1">
+        <CardTitle className="text-2xl text-center">Sign in</CardTitle>
+        <CardDescription className="text-center">
+          Enter your email and password to sign in to your account
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {error && (
+            <div className="bg-destructive/15 text-destructive text-sm px-3 py-2 rounded-md border border-destructive/20">
+              {error}
+            </div>
+          )}
+          <div className="space-y-2">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="password">Password</Label>
+            <Input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+          <Button type="submit" className="w-full" disabled={loading}>
+            {loading ? 'Signing In...' : 'Sign In'}
+          </Button>
+        </form>
+      </CardContent>
+      <CardFooter className="flex flex-col space-y-2">
+        <p className="text-sm text-muted-foreground text-center">
+          Don't have an account?{' '}
+          <Link href="/auth/register" className="text-primary hover:underline">
+            Sign up
+          </Link>
+        </p>
+      </CardFooter>
+    </Card>
   )
 }
 
