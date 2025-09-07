@@ -1,3 +1,5 @@
+import type { User, Session } from '@supabase/supabase-js'
+
 export interface LoginRequest {
   email: string
   password: string
@@ -6,10 +8,15 @@ export interface LoginRequest {
 export interface SignupRequest {
   email: string
   password: string
-  username: string
+  name: string
 }
 
 export interface AuthResponse {
   user: User
-  token: string
+  session: Session
+}
+
+export interface AuthError {
+  message: string
+  status?: number
 }
